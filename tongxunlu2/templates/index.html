@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通讯录</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>通讯录管理系统</h1>
+            <div class="actions">
+                <button onclick="showAddContactModal()">添加联系人</button>
+                <button onclick="exportContacts()">导出联系人</button>
+                <input type="file" id="importFile" accept=".xlsx" style="display: none" onchange="importContacts(event)">
+                <button onclick="document.getElementById('importFile').click()">导入联系人</button>
+            </div>
+        </header>
+
+        <div class="filters">
+            <label>
+                <input type="checkbox" id="bookmarkedOnly" onchange="loadContacts()"> 只显示收藏
+            </label>
+        </div>
+
+        <div class="contacts-list" id="contactsList">
+            <!-- 联系人列表将通过 JavaScript 动态加载 -->
+        </div>
+    </div>
+
+    <!-- 添加/编辑联系人模态框 -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">添加联系人</h2>
+            <form id="contactForm" onsubmit="saveContact(event)">
+                <input type="hidden" id="contactId">
+                <div class="form-group">
+                    <label>姓名：</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div id="contactDetails">
+                    <!-- 联系方式将在这里动态添加 -->
+                </div>
+                <button type="button" onclick="addContactDetail()">添加联系方式</button>
+                <button type="submit">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 
